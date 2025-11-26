@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 
 import connectDB from './db/index.js'
+import { app } from './app.js'
 
 dotenv.config({
     path:'./env'
@@ -10,6 +11,41 @@ dotenv.config({
 
 
 connectDB()
+.then(()=>{
+
+app.on("error",(error)=>{
+    console.log("port lishting error",error)
+    throw error
+    
+})
+
+
+
+    app.listen(process.env.PORT||7000,()=>{
+        console.log("APP IS LISHTING ON PORT :",process.env.PORT );
+        
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.catch((error)=>{
+    console.log(`mongo db connection error ${error}`);
+    throw error
+    
+})
 
 
 
